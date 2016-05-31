@@ -1,4 +1,5 @@
 (ns leiningen.repetition-hunter
+  "Find repetitions in code"
   (:require [clojure.java.io :as io]
             [clojure.pprint :refer :all]
             [clojure.tools.namespace.find :refer [find-namespaces]]
@@ -15,6 +16,7 @@
     (filter #(re-find re-name %) (str-all-ns))))
 
 (defn ^:no-project-needed repetition-hunter
+  "Find repetitions in code"
   [project & args]
   (if (empty? project)
     (warn "lein repetition-hunter needs to run inside a project")
