@@ -3,6 +3,7 @@
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[repetition-hunter "1.0.0"]]
+  :dependencies [[org.clojure/tools.namespace "0.2.11"]
+                 [repetition-hunter "1.0.0"]]
   :eval-in-leiningen true
   :repl-options {:init-ns leiningen.repetition-hunter})
