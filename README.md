@@ -7,7 +7,9 @@ Repetition-hunter is a tool to find repetitions in clojure code.
 ## Usage
 
 Put `[lein-repetition-hunter "0.1.0-SNAPSHOT"]` into the `:plugins` vector of your `:user`
-profile.
+profile in `~/.lein/profiles.clj`
+
+And `[repetition-hunter "1.0.0"]` into  `:dependencies`
 
 To get all recommendations:
 
