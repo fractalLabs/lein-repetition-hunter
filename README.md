@@ -15,9 +15,17 @@ To get all recommendations:
 
     $ lein repetition-hunter
 
+To get recommendations for specific namespaces:
+
+    $ lein repetition-hunter namespace1 namespace2
+
+If you prepend `DEBUG=y` you will be able to see the list of namespaces that will be analized
+
+like this: `Analyzing (repetition.hunter)`
+
 ## Disclaimer
 
-This is a work in progress, feel free to post issues, share PRs or contact @nes on clojure's slack.
+This is a work in progress, please post issues, share PRs or contact @nes on clojure's slack.
 
 ## License
 
