@@ -7,28 +7,27 @@
             [leiningen.core.main :refer :all]
             [repetition.hunter :refer :all]))
 
-(defn str-all-ns []
-  (map str (all-ns)))
+(defn paths [project]
+  (filter some? (concat
+                 (:source-paths project)
+                 [(:source-path project)]
+                 (mapcat :source-paths (get-in project [:cljsbuild :builds]))
+                 (mapcat :source-paths (get-in project [:cljx :builds])))))
 
-(defn project-namespaces
-  [project]
-  (let [re-name (re-pattern (:name project))]
-    (filter #(re-find re-name %) (str-all-ns))))
+(defn namespaces [project]
+  (find-namespaces (map io/file (paths project))))
 
 (defn ^:no-project-needed repetition-hunter
   "Find repetitions in code"
   [project & args]
   (if (empty? project)
     (warn "lein repetition-hunter needs to run inside a project")
-    (let [paths (filter some? (concat
-                               (:source-paths project)
-                               [(:source-path project)]
-                               (mapcat :source-paths (get-in project [:cljsbuild :builds]))
-                               (mapcat :source-paths (get-in project [:cljx :builds]))))
-          ns-xs (find-namespaces (map io/file paths))
+    (let [ns-xs (if args (map read-string args)
+                    (namespaces project))
           req `(do (use 'repetition.hunter)
                    (doseq [n# '~ns-xs]
                      (require n#)))]
+      (debug "Analyzing: " ns-xs)
       (eval-in-project project
                        `(hunt '~ns-xs)
                        req))))
